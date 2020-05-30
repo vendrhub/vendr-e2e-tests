@@ -1,0 +1,26 @@
+{
+  "name": "vendr-acceptance-tests",
+  "version": "0.1.0",
+  "description": "Acceptance Tests for Vendr, the eCommerce solution for Umbraco v8+",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cypress run",
+    "ui": "npx cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vendrhub/vendr-acceptancetests.git"
+  },
+  "author": "Matt Brailsford",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vendrhub/vendr-acceptancetests/issues"
+  },
+  "homepage": "https://github.com/vendrhub/vendr-acceptancetests",
+  "dependencies": {
+    "cross-env": "^7.0.2",
+    "cypress": "^4.7.0",
+    "ncp": "^2.0.0",
+    "umbraco-cypress-testhelpers": "^1.0.0-beta-40"
+  }
+}
