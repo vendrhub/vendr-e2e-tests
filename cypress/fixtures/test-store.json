@@ -1,0 +1,40 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "icon": "icon-store",
+  "alias": "testStore",
+  "name": "Test Store",
+
+  "defaultCountryId": null,
+  "defaultTaxClassId": null,
+  "defaultOrderStatusId": null,
+  "errorOrderStatusId": null,
+  "pricesIncludeTax": false,
+  "useCookies": true,
+  "cookieTimeout": 525600,
+
+  "confirmationEmailTemplateId": null,
+  "errorEmailTemplateId": null,
+
+  "cartNumberTemplate": "CART-{0}",
+  "orderNumberTemplate": "ORDER-{0}",
+
+  "productPropertyAliases": "",
+  "productUniquenessPropertyAliases": "",
+
+  "giftCardCodeLength": 10,
+  "giftCardCodeTemplate": null,
+  "giftCardDaysValid": 1095,
+  "giftCardPropertyAliases": "giftCardRecipientName,giftCardRecipientEmail,giftCardMessage",
+  "giftCardActivationMethod": "Manual",
+  "giftCardActivationOrderStatusId": null,
+  "defaultGiftCardEmailTemplateId": null,
+
+  "orderEditorConfig": "/app_plugins/vendr/config/order.editor.config.js",
+
+  "allowedUserRoles": [],
+  "allowedUsers": [],
+
+  "notifications": [],
+  "path": ["-1", "1"],
+  "sortOrder": 0
+}

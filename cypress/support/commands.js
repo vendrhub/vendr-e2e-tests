@@ -25,6 +25,31 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 
-import { Command } from 'umbraco-cypress-testhelpers';
+import { Command as UmbracoCommands } from 'umbraco-cypress-testhelpers';
 
-new Command().registerCypressCommands();
+new UmbracoCommands().registerCypressCommands();
+
+// Umbraco API request helper that auto prepends the required
+// Umbraco XSRF protection token and also parses the output
+// to JSON stripping out the AngularJS JSON vulnerability protection
+Cypress.Commands.add("umbracoApiRequest", (url, method, body) => {
+    return cy.getCookie('UMB-XSRF-TOKEN', { log: false }).then((token) => {
+        return cy.request({
+          method: method ?? 'GET',
+          url: url,
+          body: body,
+          followRedirect: true,
+          headers: {
+            'Accept': 'application/json',
+            'X-UMB-XSRF-TOKEN': token.value,
+          }
+        }).then(data => {
+          if (data.isOkStatusCode) {
+            // Parse the JSON payload, stripping off the 
+            // angularjs JSON Vulnerability Protection )]}',
+            return JSON.parse(data.body.substring(6));
+          }
+          return null;
+        });
+    });
+});
