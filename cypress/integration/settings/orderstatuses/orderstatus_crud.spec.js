@@ -157,7 +157,7 @@ context('Order Statuses', () => {
                 // Error message shouldn't be displayed
                 cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
 
-                // Check the node has gone from the tree
+                // Check the node has gone from the list view
                 cy.get(".umb-table-body__link").contains(orderStatus.name).should('not.exist');
                 
             })
