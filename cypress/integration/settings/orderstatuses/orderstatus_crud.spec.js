@@ -55,7 +55,7 @@ context('Order Statuses', () => {
         cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
 
         // Create store
-        cy.umbracoTreeItem("settings", ["Vendr", "Stores", "Test Store", "Order Statuses"]).rightclick();
+        cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Order Statuses"]).rightclick();
         cy.umbracoContextMenuAction("action-create").click();
 
         // Give the store a name
@@ -108,6 +108,9 @@ context('Order Statuses', () => {
                 // Notification message should display
                 cy.umbracoSuccessNotification().should('be.visible');
 
+                // Error message shouldn't be displayed
+                cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
+
                 // Check we are directed back to list view
                 cy.get(".umb-panel-header-name").contains('Order Statuses');
 
@@ -147,6 +150,9 @@ context('Order Statuses', () => {
 
                 // Notification message should display
                 cy.umbracoSuccessNotification().should('be.visible');
+
+                // Error message shouldn't be displayed
+                cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
 
                 // Check the node has gone from the tree
                 cy.get(".umb-table-body__link").contains(orderStatus.name).should('not.exist');
