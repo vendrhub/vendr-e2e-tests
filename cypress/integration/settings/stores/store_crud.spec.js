@@ -100,7 +100,7 @@ context('Stores', () => {
 
     });
 
-    it('can delete a store', () => {
+    it('can delete a store via tree context menu', () => {
 
         // Create the store from fixture data
         cy.fixture('test-store').then(data => {
@@ -121,6 +121,45 @@ context('Stores', () => {
 
                 // Notification message should display
                 cy.umbracoSuccessNotification().should('be.visible');
+
+                // Error message shouldn't be displayed
+                cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
+
+                // Check the node has gone from the tree
+                cy.get('.umb-tree-item__label').contains(store.name).should('not.exist');
+
+            });
+        });
+
+    });
+
+    it.only('can delete a store via action menu', () => {
+
+        // Create the store from fixture data
+        cy.fixture('test-store').then(data => {
+            cy.umbracoApiRequest("/umbraco/backoffice/vendr/Store/SaveStore", "POST", data).then(store => {
+                
+                // Got to settings section
+                cy.umbracoSection('settings');
+                cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+
+                // Open store context menu
+                cy.umbracoTreeItem("settings", ["Vendr", "Stores", store.name]).click();
+
+                // Open the actions menu
+                cy.get('[data-element="editor-actions"] .umb-button').click();
+
+                // Click to delete (opens confirmation)
+                cy.get('ul.umb-actions li.umb-action button').contains("Delete").click();
+
+                // Click OK to delete
+                cy.umbracoButtonByLabelKey("general_ok").click();
+
+                // Notification message should display
+                cy.umbracoSuccessNotification().should('be.visible');
+
+                // Error message shouldn't be displayed
+                cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
 
                 // Check the node has gone from the tree
                 cy.get('.umb-tree-item__label').contains(store.name).should('not.exist');
