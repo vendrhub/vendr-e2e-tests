@@ -28,7 +28,7 @@ context('Order Statuses', () => {
                 cy.umbracoSection('settings');
                 cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
 
-                // Open store context menu
+                // Open order status context menu
                 cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Order Statuses"]).click();
 
                 // Ensure a row for the order status exists
@@ -54,17 +54,17 @@ context('Order Statuses', () => {
         cy.umbracoSection('settings');
         cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
 
-        // Create store
+        // Create order status
         cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Order Statuses"]).rightclick();
         cy.umbracoContextMenuAction("action-create").click();
 
-        // Give the store a name
+        // Give the order status a name
         cy.get('[data-element="editor-name-field"]').type(name);
 
         // Wait for an alias to come back
         cy.wait('@getSafeAlias');
 
-        // Validate the store alias
+        // Validate the order status alias
         cy.get('.umb-locked-field__input').should('have.value', alias);
 
         // Select a colour
@@ -75,6 +75,9 @@ context('Order Statuses', () => {
 
         // Ensure the success notification shows
         cy.umbracoSuccessNotification().should('be.visible');
+
+        // Error message shouldn't be displayed
+        cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
 
     });
 
@@ -90,7 +93,7 @@ context('Order Statuses', () => {
                 cy.umbracoSection('settings');
                 cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
 
-                // Open store context menu
+                // Open order status context menu
                 cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Order Statuses"]).click();
 
                 // Open the order status
@@ -134,7 +137,7 @@ context('Order Statuses', () => {
                 cy.umbracoSection('settings');
                 cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
 
-                // Open store context menu
+                // Open order status context menu
                 cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Order Statuses"]).click();
 
                 // Select the row to delete
