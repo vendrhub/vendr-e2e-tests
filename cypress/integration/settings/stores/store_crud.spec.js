@@ -133,7 +133,7 @@ context('Stores', () => {
 
     });
 
-    it.only('can delete a store via action menu', () => {
+    it('can delete a store via action menu', () => {
 
         // Create the store from fixture data
         cy.fixture('test-store').then(data => {

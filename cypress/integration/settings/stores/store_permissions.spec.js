@@ -91,7 +91,7 @@ context('Stores', () => {
 
     });
 
-    it.only('can toggle access to store for all user groups', () => {
+    it('can toggle access to store for all user groups', () => {
 
         // Got to settings section
         cy.umbracoSection('settings');
@@ -186,5 +186,7 @@ context('Stores', () => {
         });
 
     });
+
+    // TODO: Test API permissions to ensure can only access store data of stores a user has access to
 
 });
