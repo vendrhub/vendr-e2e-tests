@@ -11,8 +11,8 @@ context('Stores', () => {
         cy.server();
         cy.route('/umbraco/backoffice/UmbracoApi/Entity/GetSafeAlias?*').as('getSafeAlias');
 
-        const storeName = "Test Store";
-        const storeAlias = "testStore";
+        const name = "Test Store";
+        const alias = "testStore";
 
         // Got to settings section
         cy.umbracoSection('settings');
@@ -23,13 +23,13 @@ context('Stores', () => {
         cy.umbracoContextMenuAction("action-create").click();
 
         // Give the store a name
-        cy.get('[data-element="editor-name-field"]').type(storeName);
+        cy.get('[data-element="editor-name-field"]').type(name);
 
         // Wait for an alias to come back
         cy.wait('@getSafeAlias');
 
         // Validate the store alias
-        cy.get('.umb-locked-field__input').should('have.value', storeAlias);
+        cy.get('.umb-locked-field__input').should('have.value', alias);
 
         // Submit the form
         cy.get('.btn-success').click();
@@ -106,14 +106,12 @@ context('Stores', () => {
         cy.fixture('test-store').then(data => {
             cy.umbracoApiRequest("/umbraco/backoffice/vendr/Store/SaveStore", "POST", data).then(store => {
                 
-                const storeName = store.name;
-
                 // Got to settings section
                 cy.umbracoSection('settings');
                 cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
 
                 // Open store context menu
-                cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName]).rightclick();
+                cy.umbracoTreeItem("settings", ["Vendr", "Stores", store.name]).rightclick();
 
                 // Click to delete (opens confirmation)
                 cy.umbracoContextMenuAction("action-delete").click();
@@ -125,7 +123,7 @@ context('Stores', () => {
                 cy.umbracoSuccessNotification().should('be.visible');
 
                 // Check the node has gone from the tree
-                cy.get('.umb-tree-item__label').contains(storeName).should('not.exist');
+                cy.get('.umb-tree-item__label').contains(store.name).should('not.exist');
 
             });
         });
