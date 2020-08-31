@@ -9,7 +9,7 @@ context('Install', () => {
         cy.umbracoLogin(Cypress.env('username'), Cypress.env('password'));
     });
 
-    it('has Vendr Settings section', () => {
+    it.only('has Vendr Settings section', () => {
 
         // Got to settings section
         cy.umbracoSection('settings');
@@ -22,6 +22,9 @@ context('Install', () => {
 
         // Ensure the dashboard has a title of Vendr Settings
         cy.get('h3').contains('Vendr Settings') 
+
+        // Ensure the invoicing payment provider was installed and is present in the Installed Payment Providers list
+        cy.get('.umb-property[label="Installed Payment Providers"]').contains('Vendr.PaymentProviders.Invoicing');
 
         // Ensure there is a Vendr + Stores setting section
         cy.umbracoTreeItem("settings", ["Vendr", "Stores"]);
