@@ -9,7 +9,7 @@ context('Install', () => {
         cy.umbracoLogin(Cypress.env('username'), Cypress.env('password'));
     });
 
-    it.only('has Vendr Settings section', () => {
+    it('has Vendr Settings section', () => {
 
         // Got to settings section
         cy.umbracoSection('settings');
@@ -43,7 +43,7 @@ context('Install', () => {
         cy.get('.umb-table-cell .umb-table-body__link').contains("Administrator").click();
 
         // Click to add a section
-        cy.get('.umb-box:first .umb-property:first a').contains("Add").click();
+        cy.get('.umb-property[label="@main_sections"] button').contains("Add").click();
 
         // Check there is a commerce section in the list of sections
         cy.get('.umb-editor--level1 .umb-tree-item span').contains('Commerce').click();

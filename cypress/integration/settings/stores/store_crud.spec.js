@@ -38,9 +38,10 @@ context('Stores', () => {
         cy.umbracoSuccessNotification().should('be.visible');
 
         // Check store is selected in the nav
-        cy.get(`[data-element="tree-item-${storeName}"]`).should('be.visible').and('have.class', 'current');
+        cy.get(`[data-element="tree-item-${name}"]`).should('be.visible').and('have.class', 'current');
 
         // Check "default" inputs have been populated
+        cy.get('.umb-property[label="Base Currency"] select > option[selected="selected"]').should('have.text', 'GBP');
         cy.get('.umb-property[label="Default Country"] select > option[selected="selected"]').should('have.text', 'United Kingdom');
         cy.get('.umb-property[label="Default Tax Class"] select > option[selected="selected"]').should('have.text', 'Standard');
         cy.get('.umb-property[label="Default Order Status"] select > option[selected="selected"]').should('have.text', 'New');
@@ -63,7 +64,7 @@ context('Stores', () => {
         cy.get('.umb-property[label="Order Editor Config"] input').should('have.value', '/app_plugins/vendr/config/order.editor.config.js');
 
         // Check store entity containers are present beneath the store tree item
-        cy.get(`[data-element="tree-item-${storeName}"] [data-element="tree-item-expand"]`).click();
+        cy.get(`[data-element="tree-item-${name}"] [data-element="tree-item-expand"]`).click();
         cy.get('[data-element="tree-item-Order Statuses"]').should('be.visible');
         cy.get('[data-element="tree-item-Shipping Methods"]').should('be.visible');
         cy.get('[data-element="tree-item-Payment Methods"]').should('be.visible');

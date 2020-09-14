@@ -72,7 +72,7 @@ context('Stores', () => {
         cy.get('[data-element="sub-view-permissions"]').click();
 
         // Give store access to Commerce user group
-        cy.get('.umb-property[label="Users"] .vendr-toggle').contains('admin').click();
+        cy.get('.umb-property[label="Users"] .vendr-toggle').contains('Admin').click();
 
         // Save the changes
         cy.get('[data-element="editor-footer"] .btn-success').click();

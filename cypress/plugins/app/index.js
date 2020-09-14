@@ -12,7 +12,7 @@ export default async (on, config) => {
     // Define named seeds so we can pass in short seed names that can
     // run multiple sql scripts
     const namedSeeds = {
-        baseline: [ 'permissions', 'teststore' ]
+        baseline: [ 'permissions' ]
     }
 
     // Load web config
