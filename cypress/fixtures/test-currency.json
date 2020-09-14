@@ -2,7 +2,7 @@
     "storeId": "00000000-0000-0000-0000-000000000001",
     "id": "00000000-0000-0000-0000-000000000000",
     "code": "TST",
-    "name": "Test",
+    "name": "Test Currency",
     "cultureName": "en-GB",
     "formatTemplate": "{0}TST",
     "allowedCountries": [
