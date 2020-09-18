@@ -21,7 +21,6 @@ context('Order Statuses', () => {
         // Create the order status from fixture data
         cy.fixture('test-order-status').then(data => {
             data.storeId = storeId;
-            data.path[2] = storeId;
             cy.umbracoApiRequest("/umbraco/backoffice/vendr/OrderStatus/SaveOrderStatus", "POST", data).then(orderStatus => {
 
                 // Got to settings section
@@ -86,7 +85,6 @@ context('Order Statuses', () => {
         // Create the order status from fixture data
         cy.fixture('test-order-status').then(data => {
             data.storeId = storeId;
-            data.path[2] = storeId;
             cy.umbracoApiRequest("/umbraco/backoffice/vendr/OrderStatus/SaveOrderStatus", "POST", data).then(orderStatus => {
 
                 // Got to settings section
@@ -130,7 +128,6 @@ context('Order Statuses', () => {
         // Create the order status from fixture data
         cy.fixture('test-order-status').then(data => {
             data.storeId = storeId;
-            data.path[2] = storeId;
             cy.umbracoApiRequest("/umbraco/backoffice/vendr/OrderStatus/SaveOrderStatus", "POST", data).then(orderStatus => {
 
                 // Got to settings section

@@ -32,9 +32,9 @@
   "orderEditorConfig": "/app_plugins/vendr/config/order.editor.config.js",
 
   "allowedUserRoles": [],
-  "allowedUsers": [],
+  "allowedUsers": [-1],
 
   "notifications": [],
-  "path": ["-1", "1"],
+  "path": [],
   "sortOrder": 0
 }

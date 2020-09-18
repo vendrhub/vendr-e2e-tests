@@ -1,7 +1,7 @@
 {
-  "name": "vendr-acceptance-tests",
+  "name": "vendr-e2e-tests",
   "version": "0.1.0",
-  "description": "Acceptance Tests for Vendr, the eCommerce solution for Umbraco v8+",
+  "description": "End-to-End Tests for Vendr, the eCommerce solution for Umbraco v8+",
   "main": "index.js",
   "scripts": {
     "test": "npx cypress run",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vendrhub/vendr-acceptancetests.git"
+    "url": "git+https://github.com/vendrhub/vendr-e2e-tests.git"
   },
   "author": "Matt Brailsford",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vendrhub/vendr-acceptancetests/issues"
+    "url": "https://github.com/vendrhub/vendr-e2e-tests/issues"
   },
-  "homepage": "https://github.com/vendrhub/vendr-acceptancetests",
+  "homepage": "https://github.com/vendrhub/vendr-e2e-tests",
   "dependencies": {
     "axios": "^0.20.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",

@@ -10,7 +10,6 @@ context('Commerce', () => {
 
         // Setup 1 store
         cy.fixture('test-store').then(data => {
-            data.allowedUsers.push(-1);
             cy.umbracoApiRequest("/umbraco/backoffice/vendr/Store/SaveStore", "POST", data).then(store => {
 
                 // Got to settings section

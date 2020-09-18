@@ -23,7 +23,6 @@ context('Currencies', () => {
         cy.fixture('test-currency').then(data => {
             data.storeId = storeId;
             data.allowedCountries[0].countryId = countryId;
-            data.path[2] = storeId;
             cy.umbracoApiRequest("/umbraco/backoffice/vendr/Currency/SaveCurrency", "POST", data).then(currency => {
 
                 // Got to settings section
@@ -88,7 +87,6 @@ context('Currencies', () => {
         cy.fixture('test-currency').then(data => {
             data.storeId = storeId;
             data.allowedCountries[0].countryId = countryId;
-            data.path[2] = storeId;
             cy.umbracoApiRequest("/umbraco/backoffice/vendr/Currency/SaveCurrency", "POST", data).then(currency => {
 
                 // Got to settings section
@@ -133,7 +131,6 @@ context('Currencies', () => {
         cy.fixture('test-currency').then(data => {
             data.storeId = storeId;
             data.allowedCountries[0].countryId = countryId;
-            data.path[2] = storeId;
             cy.umbracoApiRequest("/umbraco/backoffice/vendr/Currency/SaveCurrency", "POST", data).then(currency => {
 
                 // Got to settings section

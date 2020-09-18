@@ -193,7 +193,6 @@ context('Countries', () => {
             data.defaultCurrencyId = currencyId;
             data.defaultPaymentMethodId = paymentMethodId;
             data.defaultShippingMethodId = shippingMethodId;
-            data.path[2] = storeId;
             cy.umbracoApiRequest("/umbraco/backoffice/vendr/Country/SaveCountry", "POST", data).then(country => {
 
                 // Got to settings section
@@ -240,7 +239,6 @@ context('Countries', () => {
             data.defaultCurrencyId = currencyId;
             data.defaultPaymentMethodId = paymentMethodId;
             data.defaultShippingMethodId = shippingMethodId;
-            data.path[2] = storeId;
             cy.umbracoApiRequest("/umbraco/backoffice/vendr/Country/SaveCountry", "POST", data).then(country => {
 
                 // Got to settings section
@@ -287,7 +285,6 @@ context('Countries', () => {
             data.defaultCurrencyId = currencyId;
             data.defaultPaymentMethodId = paymentMethodId;
             data.defaultShippingMethodId = shippingMethodId;
-            data.path[2] = storeId;
             cy.umbracoApiRequest("/umbraco/backoffice/vendr/Country/SaveCountry", "POST", data).then(country => {
                 cy.umbracoApiRequest(`/umbraco/backoffice/vendr/Country/DeleteCountry?countryId=${country.id}`, "DELETE").then(() => {
                     cy.umbracoApiRequest("/umbraco/backoffice/vendr/Country/SaveCountry", "POST", data);
