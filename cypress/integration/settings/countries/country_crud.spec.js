@@ -275,4 +275,26 @@ context('Countries', () => {
 
     });
 
+    // There was a bug where deleting a country would resave it due to a series of connected domain events
+    // and thus it would save over the deletedTimestamp column, preventing the country name from being
+    // reused. An update was made in 1.3 to resolve this, but we keep a test to make sure that countries 
+    // can continue to be removed and re-created.
+    it('can create a country with the ISO Code of a deleted country', () => {
+
+        // Create the country from fixture data
+        cy.fixture('test-country').then(data => {
+            data.storeId = storeId;
+            data.defaultCurrencyId = currencyId;
+            data.defaultPaymentMethodId = paymentMethodId;
+            data.defaultShippingMethodId = shippingMethodId;
+            data.path[2] = storeId;
+            cy.umbracoApiRequest("/umbraco/backoffice/vendr/Country/SaveCountry", "POST", data).then(country => {
+                cy.umbracoApiRequest(`/umbraco/backoffice/vendr/Country/DeleteCountry?countryId=${country.id}`, "DELETE").then(() => {
+                    cy.umbracoApiRequest("/umbraco/backoffice/vendr/Country/SaveCountry", "POST", data);
+                });
+            })
+        });
+
+    });
+
 });
