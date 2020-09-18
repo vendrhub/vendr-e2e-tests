@@ -44,7 +44,7 @@ Cypress.Commands.add("umbracoApiRequest", (url, method, body) => {
             'X-UMB-XSRF-TOKEN': token.value,
           }
         }).then(data => {
-          if (data.isOkStatusCode) {
+          if (data.isOkStatusCode && data.body.length > 0) {
             // Parse the JSON payload, stripping off the 
             // angularjs JSON Vulnerability Protection )]}',
             return JSON.parse(data.body.substring(6));
