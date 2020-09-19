@@ -27,13 +27,13 @@ context('Currencies', () => {
 
                 // Got to settings section
                 cy.umbracoSection('settings');
-                cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+                cy.umbracoTreeRoot('Commerce').should("be.visible");
 
                 // Open currency context menu
-                cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Currencies"]).click();
+                cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", storeName, "Currencies"]).click();
 
                 // Ensure a row for the currency exists
-                cy.get('.umb-table-body__link').contains(currency.name);
+                cy.umbracoListViewLink(currency.name);
 
             })
         });
@@ -49,26 +49,26 @@ context('Currencies', () => {
 
         // Got to settings section
         cy.umbracoSection('settings');
-        cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+        cy.umbracoTreeRoot('Commerce').should("be.visible");
 
         // Create store
-        cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Currencies"]).rightclick();
+        cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", storeName, "Currencies"]).rightclick();
         cy.umbracoContextMenuAction("action-create").click();
 
         // Give the currency a name
-        cy.get('[data-element="editor-name-field"]').type(name);
+        cy.umbracoEditorNameField().type(name);
 
         // Give the currency a code
-        cy.get('.umb-property[label="ISO Code"] input').type(code);
+        cy.umbracoProperty('ISO Code').find('input').type(code);
 
         // Give the currency a code
-        cy.get('.umb-property[label="Culture"] select').select(cultureName);
+        cy.umbracoProperty('Culture').find('select').select(cultureName);
 
         // Give the currency a code
-        cy.get('.umb-property[label="Custom Format Template"] input').type(formatTemplate,  { parseSpecialCharSequences: false });
+        cy.umbracoProperty('Custom Format Template').find('input').type(formatTemplate,  { parseSpecialCharSequences: false });
 
         // Allow in default country
-        cy.get('.vendr-toggle').contains("United Kingdom").click();
+        cy.vendrToggle("United Kingdom").click();
 
         // Submit the form
         cy.get('.btn-success').click();
@@ -77,7 +77,7 @@ context('Currencies', () => {
         cy.umbracoSuccessNotification().should('be.visible');
 
         // Error message shouldn't be displayed
-        cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
+        cy.umbracoErrorNotification().should('not.be.visible');
 
     });
 
@@ -91,19 +91,19 @@ context('Currencies', () => {
 
                 // Got to settings section
                 cy.umbracoSection('settings');
-                cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+                cy.umbracoTreeRoot('Commerce').should("be.visible");
 
                 // Open currency context menu
-                cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Currencies"]).click();
+                cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", storeName, "Currencies"]).click();
 
                 // Open the currency
-                cy.get(".umb-table-body__link").contains(currency.name).click();
+                cy.umbracoListViewLink(currency.name).click();
 
                 // Open the actions menu
-                cy.get('[data-element="editor-actions"] .umb-button').click();
+                cy.umbracoActionsMenu().click();
 
                 // Click to delete (opens confirmation)
-                cy.get('ul.umb-actions li.umb-action button').contains("Delete").click();
+                cy.umbracoActionsMenuItem("Delete").click();
 
                 // Click OK to delete
                 cy.umbracoButtonByLabelKey("general_ok").click();
@@ -112,13 +112,13 @@ context('Currencies', () => {
                 cy.umbracoSuccessNotification().should('be.visible');
 
                 // Error message shouldn't be displayed
-                cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
+                cy.umbracoErrorNotification().should('not.be.visible');
 
                 // Check we are directed back to list view
-                cy.get(".umb-panel-header-name").contains('Currencies');
+                cy.umbracoEditorName().contains('Currencies');
 
                 // Check the node has gone from the list view
-                cy.get(".umb-table-body__link").contains(currency.name).should('not.exist');
+                cy.umbracoListViewLink(currency.name).should('not.exist');
                 
             })
         });
@@ -135,30 +135,28 @@ context('Currencies', () => {
 
                 // Got to settings section
                 cy.umbracoSection('settings');
-                cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+                cy.umbracoTreeRoot('Commerce').should("be.visible");
 
                 // Open currency context menu
-                cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Currencies"]).click();
+                cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", storeName, "Currencies"]).click();
 
                 // Select the row to delete
-                cy.get('.umb-table-body__link').contains(currency.name)
-                    .closest('.umb-table-row').click();
+                cy.umbracoListViewRow(currency.name).click();
 
                 // Click the delete bulk action
-                cy.get('.umb-editor-sub-header button').contains('Delete').click();
+                cy.umbracoBulkActionButton('Delete').click();
 
                 // Click OK to confirm deletion
-                cy.get('[data-element="overlay"]')
-                    .umbracoButtonByLabelKey("general_yes").click();
+                cy.umbracoButtonByLabelKey("general_yes").click();
 
                 // Notification message should display
                 cy.umbracoSuccessNotification().should('be.visible');
 
                 // Error message shouldn't be displayed
-                cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
+                cy.umbracoErrorNotification().should('not.be.visible');
 
                 // Check the node has gone from the list view
-                cy.get(".umb-table-body__link").contains(currency.name).should('not.exist');
+                cy.umbracoListViewLink(currency.name).should('not.exist');
                 
             })
         });

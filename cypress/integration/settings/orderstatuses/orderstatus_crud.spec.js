@@ -25,13 +25,13 @@ context('Order Statuses', () => {
 
                 // Got to settings section
                 cy.umbracoSection('settings');
-                cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+                cy.umbracoTreeRoot('Commerce').should("be.visible");
 
                 // Open order status context menu
-                cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Order Statuses"]).click();
+                cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", storeName, "Order Statuses"]).click();
 
                 // Ensure a row for the order status exists
-                cy.get('.umb-table-body__link').contains(orderStatus.name);
+                cy.umbracoListViewLink(orderStatus.name);
 
                 // Ensure the color swatch exists
                 cy.get(`.vendr-color-swatch.vendr-bg--${orderStatus.color}`);
@@ -51,14 +51,14 @@ context('Order Statuses', () => {
 
         // Got to settings section
         cy.umbracoSection('settings');
-        cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+        cy.umbracoTreeRoot('Commerce').should("be.visible");
 
         // Create order status
-        cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Order Statuses"]).rightclick();
+        cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", storeName, "Order Statuses"]).rightclick();
         cy.umbracoContextMenuAction("action-create").click();
 
         // Give the order status a name
-        cy.get('[data-element="editor-name-field"]').type(name);
+        cy.umbracoEditorNameField().type(name);
 
         // Wait for an alias to come back
         cy.wait('@getSafeAlias');
@@ -76,7 +76,7 @@ context('Order Statuses', () => {
         cy.umbracoSuccessNotification().should('be.visible');
 
         // Error message shouldn't be displayed
-        cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
+        cy.umbracoErrorNotification().should('not.be.visible');
 
     });
 
@@ -89,19 +89,19 @@ context('Order Statuses', () => {
 
                 // Got to settings section
                 cy.umbracoSection('settings');
-                cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+                cy.umbracoTreeRoot('Commerce').should("be.visible");
 
                 // Open order status context menu
-                cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Order Statuses"]).click();
+                cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", storeName, "Order Statuses"]).click();
 
                 // Open the order status
-                cy.get(".umb-table-body__link").contains(orderStatus.name).click();
+                cy.umbracoListViewLink(orderStatus.name).click();
 
                 // Open the actions menu
-                cy.get('[data-element="editor-actions"] .umb-button').click();
+                cy.umbracoActionsMenu().click();
 
                 // Click to delete (opens confirmation)
-                cy.get('ul.umb-actions li.umb-action button').contains("Delete").click();
+                cy.umbracoActionsMenuItem("Delete").click();
 
                 // Click OK to delete
                 cy.umbracoButtonByLabelKey("general_ok").click();
@@ -110,13 +110,13 @@ context('Order Statuses', () => {
                 cy.umbracoSuccessNotification().should('be.visible');
 
                 // Error message shouldn't be displayed
-                cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
+                cy.umbracoErrorNotification().should('not.be.visible');
 
                 // Check we are directed back to list view
-                cy.get(".umb-panel-header-name").contains('Order Statuses');
+                cy.umbracoEditorName().contains('Order Statuses');
 
                 // Check the node has gone from the list view
-                cy.get(".umb-table-body__link").contains(orderStatus.name).should('not.exist');
+                cy.umbracoListViewLink(orderStatus.name).should('not.exist');
                 
             })
         });
@@ -132,30 +132,28 @@ context('Order Statuses', () => {
 
                 // Got to settings section
                 cy.umbracoSection('settings');
-                cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+                cy.umbracoTreeRoot('Commerce').should("be.visible");
 
                 // Open order status context menu
-                cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Order Statuses"]).click();
+                cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", storeName, "Order Statuses"]).click();
 
                 // Select the row to delete
-                cy.get('.umb-table-body__link').contains(orderStatus.name)
-                    .closest('.umb-table-row').click();
+                cy.umbracoListViewRow(orderStatus.name).click();
 
                 // Click the delete bulk action
-                cy.get('.umb-editor-sub-header button').contains('Delete').click();
+                cy.umbracoBulkActionButton('Delete').click();
 
                 // Click OK to confirm deletion
-                cy.get('[data-element="overlay"]')
-                    .umbracoButtonByLabelKey("general_yes").click();
+                cy.umbracoButtonByLabelKey("general_yes").click();
 
                 // Notification message should display
                 cy.umbracoSuccessNotification().should('be.visible');
 
                 // Error message shouldn't be displayed
-                cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
+                cy.umbracoErrorNotification().should('not.be.visible');
 
                 // Check the node has gone from the list view
-                cy.get(".umb-table-body__link").contains(orderStatus.name).should('not.exist');
+                cy.umbracoListViewLink(orderStatus.name).should('not.exist');
                 
             })
         });

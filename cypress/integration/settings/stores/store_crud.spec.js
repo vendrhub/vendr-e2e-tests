@@ -16,14 +16,14 @@ context('Stores', () => {
 
         // Got to settings section
         cy.umbracoSection('settings');
-        cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+        cy.umbracoTreeRoot('Commerce').should("be.visible");
 
         // Create store
-        cy.umbracoTreeItem("settings", ["Vendr", "Stores"]).rightclick();
+        cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores"]).rightclick();
         cy.umbracoContextMenuAction("action-create").click();
 
         // Give the store a name
-        cy.get('[data-element="editor-name-field"]').type(name);
+        cy.umbracoEditorNameField().type(name);
 
         // Wait for an alias to come back
         cy.wait('@getSafeAlias');
@@ -38,63 +38,63 @@ context('Stores', () => {
         cy.umbracoSuccessNotification().should('be.visible');
 
         // Check store is selected in the nav
-        cy.get(`[data-element="tree-item-${name}"]`).should('be.visible').and('have.class', 'current');
+        cy.umbracoTreeItem(name).should('be.visible').and('have.class', 'current');
 
         // Check "default" inputs have been populated
-        cy.get('.umb-property[label="Base Currency"] select > option[selected="selected"]').should('have.text', 'GBP');
-        cy.get('.umb-property[label="Default Country"] select > option[selected="selected"]').should('have.text', 'United Kingdom');
-        cy.get('.umb-property[label="Default Tax Class"] select > option[selected="selected"]').should('have.text', 'Standard');
-        cy.get('.umb-property[label="Default Order Status"] select > option[selected="selected"]').should('have.text', 'New');
-        cy.get('.umb-property[label="Error Order Status"] select > option[selected="selected"]').should('have.text', 'Error');
-        cy.get('.umb-property[label="Use Cookies"] .umb-toggle').should('have.class', 'umb-toggle--checked');
-        cy.get('.umb-property[label="Cookie Timeout"] input').should('have.value', 525600);
+        cy.umbracoProperty('Base Currency').find('select > option[selected="selected"]').should('have.text', 'GBP');
+        cy.umbracoProperty('Default Country').find('select > option[selected="selected"]').should('have.text', 'United Kingdom');
+        cy.umbracoProperty('Default Tax Class').find('select > option[selected="selected"]').should('have.text', 'Standard');
+        cy.umbracoProperty('Default Order Status').find('select > option[selected="selected"]').should('have.text', 'New');
+        cy.umbracoProperty('Error Order Status').find('select > option[selected="selected"]').should('have.text', 'Error');
+        cy.umbracoProperty('Use Cookies').find('.umb-toggle').should('have.class', 'umb-toggle--checked');
+        cy.umbracoProperty('Cookie Timeout').find('input').should('have.value', 525600);
 
-        cy.get('.umb-property[label="Confirmation Email"] select > option[selected="selected"]').should('have.text', 'Order Confirmation');
-        cy.get('.umb-property[label="Error Email"] select > option[selected="selected"]').should('have.text', 'Order Error');
+        cy.umbracoProperty('Confirmation Email').find('select > option[selected="selected"]').should('have.text', 'Order Confirmation');
+        cy.umbracoProperty('Error Email').find('select > option[selected="selected"]').should('have.text', 'Order Error');
 
-        cy.get('.umb-property[label="Cart Number Template"] input').should('have.value', 'CART-{0}');
-        cy.get('.umb-property[label="Order Number Template"] input').should('have.value', 'ORDER-{0}');
+        cy.umbracoProperty('Cart Number Template').find('input').should('have.value', 'CART-{0}');
+        cy.umbracoProperty('Order Number Template').find('input').should('have.value', 'ORDER-{0}');
         
-        cy.get('.umb-property[label="Code Length"] input').should('have.value', 10);
-        cy.get('.umb-property[label="Valid For"] input').should('have.value', 1095);
-        cy.get('.umb-property[label="Gift Card Property Aliases"] input').should('have.value', 'giftCardRecipientName,giftCardRecipientEmail,giftCardMessage');
-        cy.get('.umb-property[label="Activation Method"] select > option[selected="selected"]').should('have.text', 'Manual');
-        cy.get('.umb-property[label="Default Gift Card Email"] select > option[selected="selected"]').should('have.text', 'Gift Card');
+        cy.umbracoProperty('Code Length').find('input').should('have.value', 10);
+        cy.umbracoProperty('Valid For').find('input').should('have.value', 1095);
+        cy.umbracoProperty('Gift Card Property Aliases').find('input').should('have.value', 'giftCardRecipientName,giftCardRecipientEmail,giftCardMessage');
+        cy.umbracoProperty('Activation Method').find('select > option[selected="selected"]').should('have.text', 'Manual');
+        cy.umbracoProperty('Default Gift Card Email').find('select > option[selected="selected"]').should('have.text', 'Gift Card');
 
-        cy.get('.umb-property[label="Order Editor Config"] input').should('have.value', '/app_plugins/vendr/config/order.editor.config.js');
+        cy.umbracoProperty('Order Editor Config').find('input').should('have.value', '/app_plugins/vendr/config/order.editor.config.js');
 
         // Check store entity containers are present beneath the store tree item
-        cy.get(`[data-element="tree-item-${name}"] [data-element="tree-item-expand"]`).click();
-        cy.get('[data-element="tree-item-Order Statuses"]').should('be.visible');
-        cy.get('[data-element="tree-item-Shipping Methods"]').should('be.visible');
-        cy.get('[data-element="tree-item-Payment Methods"]').should('be.visible');
-        cy.get('[data-element="tree-item-Countries"]').should('be.visible');
-        cy.get('[data-element="tree-item-Taxes"]').should('be.visible');
-        cy.get('[data-element="tree-item-Email Templates"]').should('be.visible');
+        cy.umbracoTreeItem(name).expander().click();
+        cy.umbracoTreeItem('Order Statuses').should('be.visible');
+        cy.umbracoTreeItem('Shipping Methods').should('be.visible');
+        cy.umbracoTreeItem('Payment Methods').should('be.visible');
+        cy.umbracoTreeItem('Countries').should('be.visible');
+        cy.umbracoTreeItem('Taxes').should('be.visible');
+        cy.umbracoTreeItem('Email Templates').should('be.visible');
 
         // Check default store entities get created
-        cy.get('[data-element="tree-item-Order Statuses"] .umb-tree-item__label').click();
+        cy.umbracoTreeItem('Order Statuses').find('.umb-tree-item__label').click();
         cy.get('.vendr-table .umb-table-body .umb-table-row:nth-child(1) .umb-table__name').contains("New");
         cy.get('.vendr-table .umb-table-body .umb-table-row:nth-child(2) .umb-table__name').contains("Completed");
         cy.get('.vendr-table .umb-table-body .umb-table-row:nth-child(3) .umb-table__name').contains("Cancelled");
         cy.get('.vendr-table .umb-table-body .umb-table-row:nth-child(4) .umb-table__name').contains("Error");
 
-        cy.get('[data-element="tree-item-Shipping Methods"] .umb-tree-item__label').click();
+        cy.umbracoTreeItem('Shipping Methods').find('.umb-tree-item__label').click();
         cy.get('.vendr-table .umb-table-body .umb-table-row:nth-child(1) .umb-table__name').contains("Pickup");
 
-        cy.get('[data-element="tree-item-Payment Methods"] .umb-tree-item__label').click();
+        cy.umbracoTreeItem('Payment Methods').find('.umb-tree-item__label').click();
         cy.get('.vendr-table .umb-table-body .umb-table-row:nth-child(1) .umb-table__name').contains("Invoicing");
 
-        cy.get('[data-element="tree-item-Countries"] .umb-tree-item__label').click();
+        cy.umbracoTreeItem('Countries').find('.umb-tree-item__label').click();
         cy.get('.vendr-table .umb-table-body .umb-table-row:nth-child(1) .umb-table__name').contains("United Kingdom");
 
-        cy.get('[data-element="tree-item-Currencies"] .umb-tree-item__label').click();
+        cy.umbracoTreeItem('Currencies').find('.umb-tree-item__label').click();
         cy.get('.vendr-table .umb-table-body .umb-table-row:nth-child(1) .umb-table__name').contains("GBP");
 
-        cy.get('[data-element="tree-item-Taxes"] .umb-tree-item__label').click();
+        cy.umbracoTreeItem('Taxes').find('.umb-tree-item__label').click();
         cy.get('.vendr-table .umb-table-body .umb-table-row:nth-child(1) .umb-table__name').contains("Standard");
 
-        cy.get('[data-element="tree-item-Email Templates"] .umb-tree-item__label').click();
+        cy.umbracoTreeItem('Email Templates').find('.umb-tree-item__label').click();
         cy.get('.vendr-table .umb-table-body .umb-table-row:nth-child(1) .umb-table__name').contains("Order Confirmation");
         cy.get('.vendr-table .umb-table-body .umb-table-row:nth-child(2) .umb-table__name').contains("Order Error");
         cy.get('.vendr-table .umb-table-body .umb-table-row:nth-child(3) .umb-table__name').contains("Gift Card");
@@ -109,10 +109,10 @@ context('Stores', () => {
                 
                 // Got to settings section
                 cy.umbracoSection('settings');
-                cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+                cy.umbracoTreeRoot('Commerce').should("be.visible");
 
                 // Open store context menu
-                cy.umbracoTreeItem("settings", ["Vendr", "Stores", store.name]).rightclick();
+                cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", store.name]).rightclick();
 
                 // Click to delete (opens confirmation)
                 cy.umbracoContextMenuAction("action-delete").click();
@@ -124,10 +124,10 @@ context('Stores', () => {
                 cy.umbracoSuccessNotification().should('be.visible');
 
                 // Error message shouldn't be displayed
-                cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
+                cy.umbracoErrorNotification().should('not.be.visible');
 
                 // Check the node has gone from the tree
-                cy.get('.umb-tree-item__label').contains(store.name).should('not.exist');
+                cy.umbracoTreeItem(store.name).should('not.exist');
 
             });
         });
@@ -142,16 +142,16 @@ context('Stores', () => {
                 
                 // Got to settings section
                 cy.umbracoSection('settings');
-                cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+                cy.umbracoTreeRoot('Commerce').should("be.visible");
 
                 // Open store context menu
-                cy.umbracoTreeItem("settings", ["Vendr", "Stores", store.name]).click();
+                cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", store.name]).click();
 
                 // Open the actions menu
-                cy.get('[data-element="editor-actions"] .umb-button').click();
+                cy.umbracoActionsMenu().click();
 
                 // Click to delete (opens confirmation)
-                cy.get('ul.umb-actions li.umb-action button').contains("Delete").click();
+                cy.umbracoActionsMenuItem("Delete").click();
 
                 // Click OK to delete
                 cy.umbracoButtonByLabelKey("general_ok").click();
@@ -160,10 +160,10 @@ context('Stores', () => {
                 cy.umbracoSuccessNotification().should('be.visible');
 
                 // Error message shouldn't be displayed
-                cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
+                cy.umbracoErrorNotification().should('not.be.visible');
 
                 // Check the node has gone from the tree
-                cy.get('.umb-tree-item__label').contains(store.name).should('not.exist');
+                cy.umbracoTreeItem(store.name).should('not.exist');
 
             });
         });

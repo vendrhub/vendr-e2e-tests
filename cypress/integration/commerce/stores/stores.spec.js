@@ -16,14 +16,14 @@ context('Commerce', () => {
                 cy.umbracoSection('commerce');
 
                 // Store should appear in the tree and be highlighted as current
-                cy.get(`[data-element="tree-item-${store.name}"].current`).should('be.visible');
+                cy.umbracoTreeItem(store.name).filter('.current').should('be.visible');
 
                 // Ensure tree nodes are present
-                cy.get(`[data-element="tree-item-${store.name}"] [data-element="tree-item-expand"]`).click();
-                cy.get('[data-element="tree-item-Orders"]').should('be.visible');
-                cy.get('[data-element="tree-item-Discounts"]').should('be.visible');
-                cy.get('[data-element="tree-item-Gift Cards"]').should('be.visible');
-                cy.get('[data-element="tree-item-Analytics"]').should('be.visible');
+                cy.umbracoTreeItem(store.name).expander().click();
+                cy.umbracoTreeItem('Orders').should('be.visible');
+                cy.umbracoTreeItem('Discounts').should('be.visible');
+                cy.umbracoTreeItem('Gift Cards').should('be.visible');
+                cy.umbracoTreeItem('Analytics').should('be.visible');
 
             });
         });

@@ -12,7 +12,7 @@ context('Commerce', () => {
         cy.umbracoSection('commerce');
 
         // There should be no visible tree items
-        cy.get('.umb-tree-item').should('not.be.visible');
+        cy.umbracoTreeItems().should('have.length', 0);
 
         // Ensure the help center dialog is present
         cy.get('.vendr-message__heading').contains('Help Center');
@@ -30,7 +30,7 @@ context('Commerce', () => {
                 cy.umbracoSection('commerce');
 
                 // Store should appear in the tree and be highlighted as current
-                cy.get(`[data-element="tree-item-${store.name}"].current`).should('be.visible');
+                cy.umbracoTreeItem(store.name).filter('.current').should('be.visible');
 
                 // Ensure the dashboard heading is visible
                 cy.get('h2').contains(`${store.name} Dashboard`);
@@ -54,8 +54,8 @@ context('Commerce', () => {
                     cy.umbracoSection('commerce');
     
                     // Stores should appear in the tree and not be highlighted
-                    cy.get(`[data-element="tree-item-${store1.name}"]:not(.current)`).should('be.visible');
-                    cy.get(`[data-element="tree-item-${store2.name}"]:not(.current)`).should('be.visible');
+                    cy.umbracoTreeItem(store1.name).not('.current').should('be.visible');
+                    cy.umbracoTreeItem(store2.name).not('.current').should('be.visible');
     
                     // Ensure the dashboard heading is visible
                     cy.get('h2').contains(`Welcome to the Commerce Section`);
@@ -68,7 +68,7 @@ context('Commerce', () => {
                     cy.get(`.store-list .store`).contains(store2.name).click();
 
                     // Store should appear in the tree and be highlighted as current
-                    cy.get(`[data-element="tree-item-${store2.name}"].current`).should('be.visible');
+                    cy.umbracoTreeItem(store2.name).filter('.current').should('be.visible');
 
                     // Ensure the dashboard heading is visible
                     cy.get('h2').contains(`${store2.name} Dashboard`);

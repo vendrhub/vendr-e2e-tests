@@ -45,19 +45,19 @@ context('Regions', () => {
 
                 // Got to settings section
                 cy.umbracoSection('settings');
-                cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+                cy.umbracoTreeRoot('Commerce').should("be.visible");
 
                 // Open region context menu
-                cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Countries"]).click();
+                cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", storeName, "Countries"]).click();
 
                 // Open the country
-                cy.get(`.umb-table-body__link[title="${countryName}"]`).click();
+                cy.umbracoListViewLink(countryName).click();
         
                 // Got to regions content app
-                cy.get('[data-element="sub-view-regions"]').click();
+                cy.umbracoContextApp('regions').click();
 
                 // Ensure a row for the region exists
-                cy.get('.umb-table-body__link').contains(region.name);
+                cy.umbracoListViewLink(region.name);
 
             })
         });
@@ -71,29 +71,29 @@ context('Regions', () => {
 
         // Got to settings section
         cy.umbracoSection('settings');
-        cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+        cy.umbracoTreeRoot('Commerce').should("be.visible");
 
         // Create region
-        cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Countries"]).click();
+        cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", storeName, "Countries"]).click();
         
         // Open the country
-        cy.get(`.umb-table-body__link[title="${countryName}"]`).click();
+        cy.umbracoListViewLink(countryName).click();
         
         // Open the actions menu
-        cy.get('[data-element="editor-actions"] .umb-button').click();
+        cy.umbracoActionsMenu().click();
 
         // Click to delete (opens confirmation)
-        cy.get('ul.umb-actions li.umb-action button').contains("Create").click();
+        cy.umbracoActionsMenuItem("Create").click();
         
         // Give the region a name
-        cy.get('[data-element="editor-name-field"]').type(name);
+        cy.umbracoEditorNameField().type(name);
 
         // Give the region a code
-        cy.get('.umb-property[label="Code"] input').type(code);
+        cy.umbracoProperty('Code').find('input').type(code);
 
         // Select defaults
-        cy.get('.umb-property[label="Default Shipping Method"] select').select(shippingMethodName);
-        cy.get('.umb-property[label="Default Payment Method"] select').select(paymentMethodName);
+        cy.umbracoProperty('Default Shipping Method').find('select').select(shippingMethodName);
+        cy.umbracoProperty('Default Payment Method').find('select').select(paymentMethodName);
 
         // Submit the form
         cy.get('.btn-success').click();
@@ -102,7 +102,7 @@ context('Regions', () => {
         cy.umbracoSuccessNotification().should('be.visible');
 
         // Error message shouldn't be displayed
-        cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
+        cy.umbracoErrorNotification().should('not.be.visible');
 
     });
 
@@ -118,25 +118,25 @@ context('Regions', () => {
 
                 // Got to settings section
                 cy.umbracoSection('settings');
-                cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+                cy.umbracoTreeRoot('Commerce').should("be.visible");
 
                 // Open region context menu
-                cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Countries"]).click();
+                cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", storeName, "Countries"]).click();
         
                 // Open the country
-                cy.get(`.umb-table-body__link[title="${countryName}"]`).click();
+                cy.umbracoListViewLink(countryName).click();
         
                 // Got to regions content app
-                cy.get('[data-element="sub-view-regions"]').click();
+                cy.umbracoContextApp('regions').click();
         
                 // Open the country
-                cy.get(`.umb-table-body__link[title="${region.name}"]`).click();
+                cy.umbracoListViewLink(region.name).click();
 
                 // Open the actions menu 
-                cy.get('[data-element="editor-actions"] .umb-button').click();
+                cy.umbracoActionsMenu().click();
 
                 // Click to delete (opens confirmation)
-                cy.get('ul.umb-actions li.umb-action button').contains("Delete").click();
+                cy.umbracoActionsMenuItem("Delete").click();
 
                 // Click OK to delete
                 cy.umbracoButtonByLabelKey("general_ok").click();
@@ -145,10 +145,10 @@ context('Regions', () => {
                 cy.umbracoSuccessNotification().should('be.visible');
 
                 // Error message shouldn't be displayed
-                cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
+                cy.umbracoErrorNotification().should('not.be.visible');
 
                 // Check we are directed back to list view
-                cy.get('[data-element="editor-name-field"]').should('have.value', countryName);
+                cy.umbracoEditorNameField().should('have.value', countryName);
 
                 // Check there are now no region results
                 cy.get(".umb-empty-state").should('be.visible');
@@ -170,33 +170,31 @@ context('Regions', () => {
 
                 // Got to settings section
                 cy.umbracoSection('settings');
-                cy.get('li .umb-tree-root:contains("Commerce")').should("be.visible");
+                cy.umbracoTreeRoot('Commerce').should("be.visible");
 
                 // Open region context menu
-                cy.umbracoTreeItem("settings", ["Vendr", "Stores", storeName, "Countries"]).click();
+                cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", storeName, "Countries"]).click();
         
                 // Open the country
-                cy.get(`.umb-table-body__link[title="${countryName}"]`).click();
+                cy.umbracoListViewLink(countryName).click();
         
                 // Got to regions content app
-                cy.get('[data-element="sub-view-regions"]').click();
+                cy.umbracoContextApp('regions').click();
 
                 // Select the row to delete
-                cy.get('.umb-table-body__link').contains(region.name)
-                    .closest('.umb-table-row').click();
+                cy.umbracoListViewRow(region.name).click();
 
                 // Click the delete bulk action
-                cy.get('.umb-editor-sub-header button').contains('Delete').click();
+                cy.umbracoBulkActionButton('Delete').click();
 
                 // Click OK to confirm deletion
-                cy.get('[data-element="overlay"]')
-                    .umbracoButtonByLabelKey("general_yes").click();
+                cy.umbracoButtonByLabelKey("general_yes").click();
 
                 // Notification message should display
                 cy.umbracoSuccessNotification().should('be.visible');
 
                 // Error message shouldn't be displayed
-                cy.get('.umb-notifications__notifications > .alert-error').should('not.be.visible');
+                cy.umbracoErrorNotification().should('not.be.visible');
 
                 // Check there are now no region results
                 cy.get(".umb-empty-state").should('be.visible');
