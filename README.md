@@ -3,7 +3,7 @@ A suite of End-to-End Tests for Vendr, the eCommerce solution for Umbraco v8+, u
 
 ## Prerequisites
 - NodeJS 12+
-- A fully configured install of Umbraco + Vendr in a `/sandbox/` folder.
+- A fully configured install of Umbraco + Vendr in a `/sandbox/` folder in the root of the solution (excluded from the repository).
   - Install using a SqlServer/LocalDb as the tests execute too fast for SqlCE to handle.
 - User information in cypress.env.json (See [Getting started](#getting-started))
 
@@ -24,9 +24,9 @@ Replace the `<email for superadmin>` and `<password for superadmin>` placeholder
 ## Executing tests
 There are two npm scripts that can be used to execute the test:
 
-- npm run test
+- npm run test  
   Executes the tests headless.
-- npm run ui
+- npm run ui  
   Executes the tests in a browser handled by a cypress application.
   
 In case of errors it is recommended to use the UI to debug.
