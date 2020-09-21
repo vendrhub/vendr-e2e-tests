@@ -24,9 +24,9 @@ Replace the `<email for superadmin>` and `<password for superadmin>` placeholder
 ## Executing tests
 There are two npm scripts that can be used to execute the test:
 
-- npm run test  
+- `npm run test`  
   Executes the tests headless.
-- npm run ui  
+- `npm run ui`  
   Executes the tests in a browser handled by a cypress application.
   
 In case of errors it is recommended to use the UI to debug.
