@@ -160,4 +160,31 @@ context('Order Statuses', () => {
 
     });
 
+    it('can sort order statuses', () => {
+
+        // Got to settings section
+        cy.umbracoSection('settings');
+        cy.umbracoTreeRoot('Commerce').should("be.visible");
+
+        // Open order status context menu
+        cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", storeName, "Order Statuses"]).rightclick();
+        cy.umbracoContextMenuAction("action-sort").click();
+
+        // Drag and drop
+        cy.get('.ui-sortable .ui-sortable-handle :nth-child(2)').eq(0).trigger('mousedown', { which: 1 })
+        cy.get('.ui-sortable .ui-sortable-handle :nth-child(2)').eq(1).trigger("mousemove").trigger("mouseup")
+
+        // Save and close dialog
+        cy.get('.umb-modalcolumn .btn-success').click();
+
+        // Load the order statuses
+        cy.umbracoTreeItemByPath('settings', ["Vendr", "Stores", storeName, "Order Statuses"]).click();
+
+        // Assert the order
+        cy.umbracoListViewRows().eq(0).should('contain.text', "Completed");
+        cy.umbracoListViewRows().eq(1).should('contain.text', "New");
+        cy.umbracoListViewRows().eq(2).should('contain.text', "Cancelled");
+
+    });
+
 });
