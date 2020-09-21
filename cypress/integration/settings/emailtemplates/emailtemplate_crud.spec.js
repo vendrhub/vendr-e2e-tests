@@ -124,7 +124,7 @@ context('Email Templates', () => {
 
     });
 
-    it.only('can delete an email template via bulk action', () => {
+    it('can delete an email template via bulk action', () => {
 
         // Create the email template from fixture data
         cy.fixture('test-email-template').then(data => {
