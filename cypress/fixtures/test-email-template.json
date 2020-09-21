@@ -1,0 +1,19 @@
+{
+    "storeId": "00000000-0000-0000-0000-000000000001",
+    "id": "00000000-0000-0000-0000-000000000000",
+    "alias": "testEmailTemplate",
+    "name": "Test Email Template",
+    "category": "Custom",
+    "subject": "Test Email",
+    "senderName": "Vendr",
+    "senderAddress": "noreply@vendr.net",
+    "toAddresses": "",
+    "ccAddresses": "",
+    "bccAddresses": "",
+    "sendToCustomer": false,
+    "templateView": "~/views/emails/test-email.cshtml",
+
+    "notifications": [],
+    "path": [],
+    "sortOrder": 0
+}
