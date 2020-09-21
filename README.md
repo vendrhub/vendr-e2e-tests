@@ -1,11 +1,11 @@
 # Vendr End-to-End Tests
-A suite of End-to-End Tests for Vendr, the eCommerce solution for Umbraco v8+, using the (Cypress.io)[https://cypress.io] test runner.
+A suite of End-to-End Tests for Vendr, the eCommerce solution for Umbraco v8+, using the [Cypress.io](https://cypress.io) test runner.
 
 ## Prerequisites
 - NodeJS 12+
 - A fully configured install of Umbraco + Vendr in a `/sandbox/` folder.
   - Install using a SqlServer/LocalDb as the tests execute too fast for SqlCE to handle.
-- User information in cypress.env.json (See (Getting started)[#getting-started])
+- User information in cypress.env.json (See [Getting started](#getting-started))
 
 ## Getting started
 Fork and clone locally then run `npm install` to install all developer dependencies.
