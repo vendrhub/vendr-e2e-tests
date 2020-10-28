@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npx cypress run",
-    "ui": "npx cypress open"
+    "ui": "npx cypress open --env type=actual",
+    "ui:base": "npx cypress open --env type=base --config screenshotsFolder=cypress/snapshots/base"
   },
   "repository": {
     "type": "git",
@@ -22,13 +23,12 @@
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-register": "^6.26.0",
     "cross-env": "^7.0.2",
+    "cypress": "^5.5.0",
+    "cypress-visual-regression": "^1.5.2",
     "fs-extra": "^9.0.1",
     "mssql": "^6.2.1",
     "ncp": "^2.0.0",
     "umbraco-cypress-testhelpers": "^1.0.0-beta-48",
     "xml2js": "^0.4.23"
-  },
-  "devDependencies": {
-    "cypress": "^5.2.0"
   }
 }
