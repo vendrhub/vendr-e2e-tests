@@ -24,9 +24,11 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-
+import compareSnapshotCommand from 'cypress-visual-regression/dist/command';
 import { Command as UmbracoCommands } from 'umbraco-cypress-testhelpers';
 import UmbracoTreeItem from 'umbraco-cypress-testhelpers/lib/cypress/commands/umbracoTreeItem';
+
+compareSnapshotCommand();
 
 new UmbracoCommands().registerCypressCommands();
 

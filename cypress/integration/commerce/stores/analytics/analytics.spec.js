@@ -28,7 +28,7 @@ context('Commerce', () => {
                 cy.umbracoBox("Top Selling Products");
                 
                 // Error message shouldn't be displayed
-                cy.umbracoErrorNotification().should('not.be.visible');
+                // cy.umbracoErrorNotification().should('not.be.visible');
 
             });
         });

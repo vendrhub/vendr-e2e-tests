@@ -27,11 +27,13 @@ UPDATE [vendrOrder] SET [shippingMethodId] = null;
 UPDATE [vendrOrder] SET [copiedFromOrderId] = null;
 
 -- Remove Vendr match table data
+DELETE FROM [vendrActivityLog];
 DELETE FROM [vendrCurrencyAllowedCountry];
 DELETE FROM [vendrDiscountCode];
 DELETE FROM [vendrFrozenPrice];
 DELETE FROM [vendrGiftCardProperty];
-DELETE FROM [vendrOrderAppliedDiscount];
+DELETE FROM [vendrOrderPriceAdjustment];
+DELETE FROM [vendrOrderAmountAdjustment];
 DELETE FROM [vendrOrderAppliedDiscountCode];
 DELETE FROM [vendrOrderAppliedGiftCard];
 DELETE FROM [vendrOrderLineProperty];
